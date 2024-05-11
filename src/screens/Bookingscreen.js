@@ -8,7 +8,25 @@ function Bookingscreen() {
   const [room, setRoom] = useState({ name: "abc" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const { roomid } = useParams();
+  const { roomid, fromdate, todate } = useParams();
+
+  // Hàm chuyển đổi ngày từ dạng "DD-MM-YYYY" sang "MM-DD-YYYY" để phù hợp với định dạng chuẩn của JavaScript Date Object
+  const convertToDateObject = (dateString) => {
+    const parts = dateString.split('-');
+    return `${parts[1]}-${parts[0]}-${parts[2]}`;
+  }
+
+  // Chuyển đổi các ngày từ chuỗi sang đối tượng Date
+  const fromDateObj = new Date(convertToDateObject(fromdate));
+  const toDateObj = new Date(convertToDateObject(todate));
+
+  // Tính số mili giây giữa hai ngày
+  const timeDifference = toDateObj.getTime() - fromDateObj.getTime();
+
+  // Chuyển đổi số mili giây thành số ngày
+  const totaldays = timeDifference > 0 ? timeDifference / (1000 * 3600 * 24) + 1 : 0;
+
+  const totalamount = totaldays * room.rentperday
 
   useEffect(() => {
     let isMounted = true;
@@ -48,6 +66,24 @@ function Bookingscreen() {
     return null;
   }
 
+  async function bookRoom() {
+    const bookingDetails = {
+      room,
+      userid: JSON.parse(localStorage.getItem('currentUser'))._id,
+      fromdate,
+      todate,
+      totalamount,
+      totaldays
+      
+    }
+
+    try {
+      const result = await axios.post('/api/bookings/bookroom', bookingDetails)
+    } catch (error) {
+      
+    }
+  }
+
   return (
     <div className='m-5'>
       <div className='row justify-content-center mt-5 bs'>
@@ -56,30 +92,30 @@ function Bookingscreen() {
           <img src={room.imageurls[0]} className='bigimg' alt='' />
         </div>
         <div className='col-md-6'>
-          <div style={{textAlign: "right"}} >
+          <div style={{ textAlign: "right" }} >
             <h1>Booking Details</h1>
             <hr />
 
             <b>
-              <p>Name: </p>
-              <p>From Date: </p>
-              <p>To Date: </p>
+              <p>Name: {JSON.parse(localStorage.getItem('currentUser')).name}</p>
+              <p>From Date: {fromdate}</p>
+              <p>To Date: {todate}</p>
               <p>Max count: {room.maxcount}</p>
             </b>
           </div>
 
-          <div style={{textAlign: "right"}}>
+          <div style={{ textAlign: "right" }}>
             <b>
               <h1>Amount</h1>
               <hr />
-              <p>Total days: </p>
+              <p>Total days: {totaldays}</p>
               <p>Rent per day: {room.rentperday}</p>
-              <p>Total Amount: </p>
+              <p>Total Amount: {totalamount}</p>
             </b>
           </div>
 
-          <div style={{float: 'right'}}>
-            <button className='btn btn-primary'>Pay now</button>
+          <div style={{ float: 'right' }}>
+            <button className='btn btn-primary' onClick={bookRoom}>Pay now</button>
           </div>
         </div>
       </div>

@@ -1,5 +1,8 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import Loader from '../components/Loader';
+import Error from '../components/Error';
+import Success from '../components/Success';
 
 function Registerscreen() {
 
@@ -7,6 +10,10 @@ function Registerscreen() {
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
   const [confirmpassword, setconfirmpassword] = useState('')
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [success, setsuccess] = useState()
 
   async function register() {
     if (password === confirmpassword) {
@@ -16,13 +23,24 @@ function Registerscreen() {
         password,
         confirmpassword,
       }
-      
+
       try {
+        setLoading(true)
         const response = await axios.post('/api/users/register', user);
         const result = response.data; // Lấy dữ liệu từ phản hồi
         console.log(result); // In ra dữ liệu từ server nếu cần
+        setLoading(false)
+        setsuccess(true)
+
+        setname('')
+        setemail('')
+        setpassword('')
+        setconfirmpassword('')
+
       } catch (error) {
         console.error(error);
+        setLoading(false)
+        setError(true)
       }
     }
     else {
@@ -32,18 +50,22 @@ function Registerscreen() {
 
   return (
     <div>
+      {loading && (<Loader />)}
+      {error && (<Error />)}
       <div className='row justify-content-center mt-5'>
         <div className='col-md-5'>
-          <div className='bs'> 
+          {success && (<Success message='Registration success' />)}
+
+          <div className='bs'>
             <h2>Register</h2>
             <input type='text' className='form-control' placeholder='Name'
-            value={name} onChange={(e) => {setname(e.target.value)}} />
+              value={name} onChange={(e) => { setname(e.target.value) }} />
             <input type='text' className='form-control' placeholder='Email'
-            value={email} onChange={(e) => {setemail(e.target.value)}} />
+              value={email} onChange={(e) => { setemail(e.target.value) }} />
             <input type='text' className='form-control' placeholder='Password'
-            value={password} onChange={(e) => {setpassword(e.target.value)}} />
+              value={password} onChange={(e) => { setpassword(e.target.value) }} />
             <input type='text' className='form-control' placeholder='Confirm password'
-            value={confirmpassword} onChange={(e) => {setconfirmpassword(e.target.value)}} />
+              value={confirmpassword} onChange={(e) => { setconfirmpassword(e.target.value) }} />
 
             <button className='btn btn-primary mt-3' onClick={register}>Register</button>
           </div>
