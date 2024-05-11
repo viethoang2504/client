@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
+import StripeCheckout from 'react-stripe-checkout';
+import CustomStripeCheckout from '../components/CustomStripeCheckout';
+import Swal from 'sweetalert2'
 
 function Bookingscreen() {
   const [room, setRoom] = useState({ name: "abc" });
@@ -74,14 +77,24 @@ function Bookingscreen() {
       todate,
       totalamount,
       totaldays
-      
+
     }
 
     try {
+      setLoading(true)
       const result = await axios.post('/api/bookings/bookroom', bookingDetails)
+      setLoading(false)
+      Swal.fire('Congratulation', 'Your Room Booked Successfully', 'success').then(result => {
+        window.location.href='/bookings'
+      })
     } catch (error) {
-      
+      setLoading(false)
+      Swal.fire('Opps', 'Something went wrong', 'error')
     }
+  }
+
+  function onToken(token) {
+    console.log(token);
   }
 
   return (
@@ -116,6 +129,12 @@ function Bookingscreen() {
 
           <div style={{ float: 'right' }}>
             <button className='btn btn-primary' onClick={bookRoom}>Pay now</button>
+            {/* <StripeCheckout
+              amount={totalamount * 100}
+              token={onToken}
+              currency='USD'
+              stripeKey="pk_test_51PFE2LRuzRgXA0nkKBUnDkqrUbf7Se8LThbkNRMAsd28P7Gi5YAlAYTiN84OfHuDJdY9ISmFb482JdhG7BkRaVoH007PjCxCI6"
+            /> */}
           </div>
         </div>
       </div>
