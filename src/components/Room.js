@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Modal, Button, Carousel } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 
-function Room({ room }) {
+function Room({ room, fromdate, todate }) {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -10,7 +10,7 @@ function Room({ room }) {
     return (
         <div className='row bs'>
             <div className='col-md-4'>
-                <img src={room.imageurls[0]} className='smallimg' alt=''/>
+                <img src={room.imageurls[0]} className='smallimg' alt='' />
             </div>
             <div className='col-md-7'>
                 <h1>{room.name}</h1>
@@ -20,9 +20,12 @@ function Room({ room }) {
                     <p>Type: {room.type}</p>
                 </b>
                 <div style={{ float: 'right', display: 'flex', gap: '5px' }}>
-                    <Link to={`/book/${room._id}`}>
-                        <button className='btn btn-primary ml-5'>Book Now</button>
-                    </Link>
+                    {((fromdate !== 'Choose a date') && (todate !== 'Choose a date')) && (
+                        <Link to={`/book/${room._id}/${fromdate}/${todate}`}>
+                            <button className='btn btn-primary ml-5'>Book Now</button>
+                        </Link>
+                    )}
+
                     <button className='btn btn-primary' onClick={handleShow}>View Details</button>
                 </div>
             </div>
@@ -33,14 +36,14 @@ function Room({ room }) {
                 </Modal.Header>
                 <Modal.Body>
                     <Carousel>
-                        {room.imageurls.map(url => {
-                            return <Carousel.Item>
-                            <img
-                                className='d-block w-100 bigimg'
-                                src={url}
-                                alt='first slide'
-                            />
-                        </Carousel.Item>
+                        {room.imageurls.map((url, index) => {
+                            return <Carousel.Item key={index}>
+                                <img
+                                    className='d-block w-100 bigimg'
+                                    src={url}
+                                    alt='first slide'
+                                />
+                            </Carousel.Item>
                         })}
                     </Carousel>
                     <p>{room.description}</p>
