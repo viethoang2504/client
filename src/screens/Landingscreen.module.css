@@ -1,0 +1,98 @@
+/* CSS cho toàn trang */
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+}
+
+/* CSS cho container chính */
+.landing {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh + 50px); /* Trừ đi chiều cao của header */
+    text-align: center;
+}
+
+.abcd {
+    align-items: flex-start;
+    appearance: button;
+    background-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(13, 110, 253);
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-style: solid;
+    border-bottom-width: 0.8px;
+    border-image-outset: 0;
+    border-image-repeat: stretch;
+    border-image-slice: 100%;
+    border-image-source: none;
+    border-image-width: 1;
+    border-left-color: rgb(13, 110, 253);
+    border-left-style: solid;
+    border-left-width: 0.8px;
+    border-right-color: rgb(13, 110, 253);
+    border-right-style: solid;
+    border-right-width: 0.8px;
+    border-top-color: rgb(13, 110, 253);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-top-style: solid;
+    border-top-width: 0.8px;
+    box-shadow: none;
+    box-sizing: border-box;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    display: block;
+    font-family: Poppins, sans-serif;
+    font-feature-settings: normal;
+    font-kerning: auto;
+    font-optical-sizing: auto;
+    font-size: 16px;
+    font-stretch: 100%;
+    font-style: normal;
+    font-variant-alternates: normal;
+    font-variant-caps: normal;
+    font-variant-east-asian: normal;
+    font-variant-ligatures: normal;
+    font-variant-numeric: normal;
+    font-variant-position: normal;
+    font-variation-settings: normal;
+    font-weight: 400;
+    height: 37.6px;
+    letter-spacing: normal;
+    line-height: 24px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    padding-block-end: 6px;
+    padding-block-start: 6px;
+    padding-bottom: 6px;
+    padding-inline-end: 12px;
+    padding-inline-start: 12px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 6px;
+    text-align: center;
+    text-decoration-color: rgb(255, 255, 255);
+    text-decoration-line: none;
+    text-decoration-style: solid;
+    text-indent: 0px;
+    text-rendering: auto;
+    text-shadow: none;
+    text-transform: none;
+    transition-behavior: normal, normal, normal, normal;
+    transition-delay: 0s, 0s, 0s, 0s;
+    transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
+    transition-property: color, background-color, border-color, box-shadow;
+    transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+    vertical-align: middle;
+    width: 123.175px;
+    word-spacing: 0px;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-border-image: none;
+}
