@@ -12,7 +12,7 @@ function Navbar() {
     return (
         <div>
             <nav className="navbar navbar-expand-lg">
-                <a className="navbar-brand" href="#">PROJECT 2</a>
+                <a className="navbar-brand" href="/home">Motel Management</a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon" ><i style={{color: 'white'}} className="fa fa-bars"></i></span>
                 </button>
@@ -25,7 +25,7 @@ function Navbar() {
                                       <i className='fa fa-user'></i>  {user.name}
                                     </button>
                                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a className="dropdown-item" href="/bookings">Bookings</a>
+                                        <a className="dropdown-item" href="/profile">Profile</a>
                                         <a className="dropdown-item" href="#" onClick={logout}>Logout</a>
                                     </div>
                                 </div>

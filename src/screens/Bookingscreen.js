@@ -32,6 +32,11 @@ function Bookingscreen() {
   const totalamount = totaldays * room.rentperday
 
   useEffect(() => {
+
+    if(!localStorage.getItem('currentUser')) {
+      window.location.reload = 'login'
+    }
+
     let isMounted = true;
     const fetchData = async () => {
       try {

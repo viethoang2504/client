@@ -99,3 +99,12 @@ h2 {
 .dropdown-toggle {
   border: 0px solid black !important;
 }
+
+.profile-tabs-container {
+  margin-left: 15px; /* Đặt margin-left là 3px */
+  margin-top: 3px; /* Đặt margin-top là 3px */
+}
+
+p {
+  font-size: 16px !important;
+}
