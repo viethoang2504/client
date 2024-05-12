@@ -165,7 +165,7 @@ export function Profiles() {
             <br />
             <h1>Name: {user.name}</h1>
             <h1>Email: {user.email}</h1>
-            <h1>Is Admin: {user.isAmin ? 'Yes' : 'No'}</h1>
+            <h1>Is Admin: {user.isAdmin ? 'Yes' : 'No'}</h1>
         </div>
     )
 }

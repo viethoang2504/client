@@ -100,9 +100,9 @@ function Homescreen() {
     settype(e)
 
     if (e !== 'all') {
-      const temprooms = duplicaterooms.filter(room => room.type.toLowerCase() == e.toLowerCase())
-    
-    setrooms(temprooms)
+      const temprooms = duplicaterooms.filter(room => room.type.toLowerCase() === e.toLowerCase())
+
+      setrooms(temprooms)
     } else {
       setrooms(duplicaterooms)
     }
@@ -117,15 +117,20 @@ function Homescreen() {
           <RangePicker format='DD-MM-YYYY' onChange={filterByDate} />
         </div>
 
-        <div className='col-md-5'>
-          <input type='text' className='form-control' placeholder='Search rooms'
-          value={searchkey} onChange={(e) => {setsearchkey(e.target.value)}} onKeyUp={filterBySearch}
+        <div className='col-md-6 d-flex justify-content-center'>
+          <input
+            type='text'
+            className='form-control mx-auto'
+            placeholder='Search rooms'
+            value={searchkey}
+            onChange={(e) => { setsearchkey(e.target.value) }}
+            onKeyUp={filterBySearch}
+            style={{marginTop: '0px'}}
           />
-          
         </div>
 
         <div className='col-md-3'>
-          <select class="custom-select" value={type} onChange={(e) => {filterByType(e.target.value)}}>
+          <select class="custom-select" value={type} onChange={(e) => { filterByType(e.target.value) }}>
             <option value="all">All</option>
             <option value="Cheap">Cheap</option>
             <option value="Normal">Normal</option>
