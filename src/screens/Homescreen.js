@@ -130,7 +130,7 @@ function Homescreen() {
         </div>
 
         <div className='col-md-3'>
-          <select class="custom-select" value={type} onChange={(e) => { filterByType(e.target.value) }}>
+          <select className="custom-select" value={type} onChange={(e) => { filterByType(e.target.value) }}>
             <option value="all">All</option>
             <option value="Cheap">Cheap</option>
             <option value="Normal">Normal</option>

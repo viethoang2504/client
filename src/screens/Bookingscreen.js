@@ -13,28 +13,50 @@ function Bookingscreen() {
   const [error, setError] = useState(false);
   const { roomid, fromdate, todate } = useParams();
 
-  // Hàm chuyển đổi ngày từ dạng "DD-MM-YYYY" sang "MM-DD-YYYY" để phù hợp với định dạng chuẩn của JavaScript Date Object
-  const convertToDateObject = (dateString) => {
-    const parts = dateString.split('-');
-    return `${parts[1]}-${parts[0]}-${parts[2]}`;
+  function calculateDaysDifference(fromDate, toDate) {
+    const oneDay = 24 * 60 * 60 * 1000; // Số mili giây trong một ngày
+
+    const from = new Date(fromDate);
+    const to = new Date(toDate);
+
+    const differenceInDays = Math.round(Math.abs((from - to) / oneDay));
+
+    return differenceInDays;
   }
 
-  // Chuyển đổi các ngày từ chuỗi sang đối tượng Date
-  const fromDateObj = new Date(convertToDateObject(fromdate));
-  const toDateObj = new Date(convertToDateObject(todate));
+  const fromDate = fromdate;
+  const toDate = todate;
 
-  // Tính số mili giây giữa hai ngày
-  const timeDifference = toDateObj.getTime() - fromDateObj.getTime();
+  const daysDifference = calculateDaysDifference(fromDate, toDate);
+  console.log(daysDifference);
 
-  // Chuyển đổi số mili giây thành số ngày
-  const totaldays = timeDifference > 0 ? timeDifference / (1000 * 3600 * 24) + 1 : 0;
+  const totaldays = daysDifference + 1
 
-  const totalamount = totaldays * room.rentperday
+  function calculateMonthsDifference(fromDate, toDate) {
+    const from = new Date(fromDate);
+    const to = new Date(toDate);
 
+    const fromYear = from.getFullYear();
+    const fromMonth = from.getMonth();
+
+    const toYear = to.getFullYear();
+    const toMonth = to.getMonth();
+
+    const differenceInYears = toYear - fromYear;
+    const differenceInMonths = (differenceInYears * 12) + (toMonth - fromMonth);
+
+    return differenceInMonths;
+  }
+
+  const monthsDifference = calculateMonthsDifference(fromDate, toDate);
+  console.log(monthsDifference);
+
+
+  const totalamount = monthsDifference > 0 ? monthsDifference * room.rentperday : (daysDifference + 1) * 200
   useEffect(() => {
 
-    if(!localStorage.getItem('currentUser')) {
-      window.location.reload = 'login'
+    if (!localStorage.getItem('currentUser')) {
+      window.location.replace('/login')
     }
 
     let isMounted = true;
@@ -90,7 +112,7 @@ function Bookingscreen() {
       const result = await axios.post('/api/bookings/bookroom', bookingDetails)
       setLoading(false)
       Swal.fire('Congratulation', 'Your Room Booked Successfully', 'success').then(result => {
-        window.location.href='/bookings'
+        window.location.href = '/home'
       })
     } catch (error) {
       setLoading(false)
@@ -102,6 +124,24 @@ function Bookingscreen() {
     console.log(token);
   }
 
+  function convertToShortDate(longDate) {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    const dateObj = new Date(longDate);
+    const year = dateObj.getFullYear();
+    const month = months[dateObj.getMonth()];
+    const day = dateObj.getDate();
+    const dayOfWeek = days[dateObj.getDay()];
+
+    return `${dayOfWeek}, ${day} ${month} ${year}`;
+  }
+
+
+  const shortDate = convertToShortDate(fromdate);
+  const shortDate2 = convertToShortDate(todate);
+
+  
   return (
     <div className='m-5'>
       <div className='row justify-content-center mt-5 bs'>
@@ -116,8 +156,8 @@ function Bookingscreen() {
 
             <b>
               <p>Name: {JSON.parse(localStorage.getItem('currentUser')).name}</p>
-              <p>From Date: {fromdate}</p>
-              <p>To Date: {todate}</p>
+              <p>From Date: {shortDate}</p>
+              <p>To Date: {shortDate2}</p>
               <p>Max count: {room.maxcount}</p>
             </b>
           </div>
@@ -126,8 +166,8 @@ function Bookingscreen() {
             <b>
               <h1>Amount</h1>
               <hr />
-              <p>Total days: {totaldays}</p>
-              <p>Rent per day: {room.rentperday}</p>
+              {monthsDifference > 0 ? <p>Total Month: {monthsDifference}</p> : <p>Total Day: {totaldays}</p>}
+              {monthsDifference > 0 ? <p>Rent Per Month: {room.rentperday}</p> : <p>Rent Per Day: 200</p>}
               <p>Total Amount: {totalamount}</p>
             </b>
           </div>

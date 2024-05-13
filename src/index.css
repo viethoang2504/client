@@ -122,3 +122,13 @@ p {
   border-radius: 5px !important;
   padding: 20px !important;
 }
+
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 4px;
+}
+
+.huhu {
+  padding-right: 20px;
+}

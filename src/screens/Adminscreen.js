@@ -205,8 +205,9 @@ export function Rooms() {
                             <th>Room ID</th>
                             <th>Name</th>
                             <th>Type</th>
+                            <th>Rent Per Month</th>
                             <th>Rent Per Day</th>
-                            <th>Max Count</th>
+                            <th>Max People</th>
                             <th>Phone Number</th>
                         </tr>
                     </thead>
@@ -219,6 +220,7 @@ export function Rooms() {
                                     <td>{room.name}</td>
                                     <td>{room.type}</td>
                                     <td>{room.rentperday}</td>
+                                    <td>200</td>
                                     <td>{room.maxcount}</td>
                                     <td>{room.phonenumber}</td>
                                 </tr>
@@ -285,7 +287,7 @@ export function Users() {
                                     <td>{user._id}</td>
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
-                                    <td>{user.isAdmin ? 'Yes' : 'No'}</td>
+                                    <td>{user.isAdmin ? 'Yes' : 'Yes'}</td>
                                 </tr>
                             )
                         }))}
@@ -371,7 +373,7 @@ export function AddRoom() {
                 value={imageurl3} onChange={(e) => {setimageurl3(e.target.value)}}
                 />
                 
-                <div className='text-right'>
+                <div className='text-right' style={{ textAlign: 'right' }}>
 
                     <button className='btn btn-primary mt-2' onClick={addRooms}>Add Room</button>
 

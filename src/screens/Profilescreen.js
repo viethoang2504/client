@@ -12,7 +12,7 @@ import {
     ExclamationCircleOutlined,
     MinusCircleOutlined,
     SyncOutlined,
-  } from '@ant-design/icons';
+} from '@ant-design/icons';
 
 const { TabPane } = Tabs
 const operations = <Button>Extra Action</Button>;
@@ -120,7 +120,7 @@ export function MyBookings() {
                             <p><b>Check Out:</b> {booking.todate}</p>
                             <p><b>Amount:</b> {booking.totalamount}</p>
                             <p>
-                                <b>Status:</b> 
+                                <b>Status:</b>
                                 <span style={{ marginRight: '8px' }}></span>
                                 {booking.status === 'cancelled' ? (<Tag icon={<CloseCircleOutlined />} color="red">Cancelled</Tag>) : <Tag icon={<CheckCircleOutlined />} color="green">Confirmed</Tag>}
                             </p>
@@ -166,6 +166,15 @@ export function Profiles() {
             <h1>Name: {user.name}</h1>
             <h1>Email: {user.email}</h1>
             <h1>Is Admin: {user.isAdmin ? 'Yes' : 'No'}</h1>
+            <div className='bs' style={{ position: 'relative', marginLeft: '20px', marginRight: '20px', width: '500px'}}>
+    
+                <p style={{marginBottom: '0px'}}><b>Phone Number:</b> </p>
+                <p style={{marginBottom: '0px'}}><b>Address:</b> </p>
+                <p style={{marginBottom: '0px'}}>
+                    <b>Is Admin:</b>
+                    <span style={{ marginRight: '8px' }}></span>
+                </p>
+            </div>
         </div>
     )
 }
